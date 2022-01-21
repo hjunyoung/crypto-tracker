@@ -25,6 +25,10 @@ const Loader = styled.span`
 const CoinsList = styled.ul``;
 
 const Coin = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   background-color: white;
   color: ${(props) => props.theme.bgColor};
   padding: 16px;
@@ -35,6 +39,11 @@ const Coin = styled.li`
   &:hover {
     color: ${(props) => props.theme.accentColor};
   }
+`;
+
+const CoinIcon = styled.img`
+  width: 32px;
+  height: 32px;
 `;
 
 const Title = styled.h1`
@@ -77,7 +86,13 @@ const Coins = () => {
         <CoinsList>
           {coins.map((coin) => (
             <Link key={coin.id} to={`/${coin.symbol}`}>
-              <Coin>{coin.name} &rarr;</Coin>
+              <Coin>
+                <CoinIcon
+                  src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+                  alt="coin icon"
+                />
+                <span>{coin.name} &rarr;</span>
+              </Coin>
             </Link>
           ))}
         </CoinsList>
