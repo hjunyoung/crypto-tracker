@@ -85,7 +85,11 @@ const Coins = () => {
       ) : (
         <CoinsList>
           {coins.map((coin) => (
-            <Link key={coin.id} to={`/${coin.symbol}`}>
+            <Link
+              key={coin.id}
+              to={`/${coin.symbol}`}
+              state={{ name: coin.name }}
+            >
               <Coin>
                 <CoinIcon
                   src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
