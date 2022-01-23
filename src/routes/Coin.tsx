@@ -115,7 +115,7 @@ const Coin = () => {
       setPriceInfo(priceData);
       setIsLoading(false);
     })();
-  }, []);
+  }, [coinId]);
 
   return (
     <Container>
