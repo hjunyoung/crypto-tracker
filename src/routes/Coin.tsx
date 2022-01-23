@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import {
+  useLocation,
+  useParams,
+  Outlet,
+  Link,
+  useMatch,
+} from 'react-router-dom';
 import styled from 'styled-components';
+import { parentPort } from 'worker_threads';
 
 const Container = styled.div`
   max-width: 480px;
@@ -25,6 +32,57 @@ const Loader = styled.span`
 const Title = styled.h1`
   font-size: 3rem;
   color: ${(props) => props.theme.accentColor};
+`;
+
+const Overview = styled.div`
+  display: flex;
+  justify-content: space-around;
+  background-color: ${(props) => props.theme.sectionColor};
+  padding: 16px 24px;
+  border-radius: ${(props) => props.theme.borderRadius};
+`;
+
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+`;
+
+const Description = styled.p`
+  margin: 24px 8px;
+  text-align: justify;
+`;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  margin: 16px 0;
+  gap: 8px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: ${(props) => props.theme.sectionColor};
+  padding: 8px 0;
+  border-radius: ${(props) => props.theme.borderRadius};
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+
+  a {
+    display: block;
+  }
 `;
 
 /* interface IRouteState {
@@ -102,6 +160,8 @@ const Coin = () => {
   const [priceInfo, setPriceInfo] = useState<IPriceData>();
   const { coinId } = useParams();
   const { state } = useLocation() as ILocation;
+  const chartMatch = useMatch(':coinId/chart');
+  const priceMatch = useMatch(':coinId/price');
 
   useEffect(() => {
     (async () => {
@@ -120,9 +180,52 @@ const Coin = () => {
   return (
     <Container>
       <Header>
-        <Title>{state?.name ?? 'Loading...'}</Title>
+        <Title>
+          {state?.name ? state.name : isLoading ? 'Loading...' : info?.name}
+        </Title>
       </Header>
-      {isLoading ? <Loader>Loading...</Loader> : null}
+      {isLoading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <>
+          <Overview>
+            <OverviewItem>
+              <span>Rank:</span>
+              <span>{info?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Symbol:</span>
+              <span>{info?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Open Source:</span>
+              <span>{info?.open_source ? 'Yes' : 'No'}</span>
+            </OverviewItem>
+          </Overview>
+          <Description>{info?.description}</Description>
+          <Overview>
+            <OverviewItem>
+              <span>Total Supply:</span>
+              <span>{priceInfo?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Max Supply:</span>
+              <span>{priceInfo?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to="chart">Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to="price">Price</Link>
+            </Tab>
+          </Tabs>
+
+          <Outlet />
+        </>
+      )}
     </Container>
   );
 };
