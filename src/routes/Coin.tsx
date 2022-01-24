@@ -174,7 +174,8 @@ const Coin = () => {
   );
   const { isLoading: priceLoading, data: priceData } = useQuery<IPriceData>(
     ['price', coinId],
-    () => fetchCoinPrice(coinId)
+    () => fetchCoinPrice(coinId),
+    { refetchInterval: 5000 }
   );
   const isLoading = infoLoading || priceLoading;
 
@@ -213,8 +214,8 @@ const Coin = () => {
               <span>{infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? 'Yes' : 'No'}</span>
+              <span>Price:</span>
+              <span>${priceData?.quotes.USD.price.toFixed(2)}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
