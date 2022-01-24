@@ -26,6 +26,22 @@ const Header = styled.header`
   height: 14vh;
 `;
 
+const BackBtn = styled.button`
+  all: unset;
+  display: block;
+  background-color: ${(props) => props.theme.sectionColor};
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    color: ${(props) => props.theme.accentColor};
+    &:active {
+      color: ${(props) => props.theme.textColor};
+    }
+  }
+`;
+
 const Loader = styled.span`
   display: block;
   text-align: center;
@@ -201,6 +217,9 @@ const Coin = () => {
           {state?.name ? state.name : isLoading ? 'Loading...' : infoData?.name}
         </title>
       </Helmet>
+      <Link to="/">
+        <BackBtn>Home</BackBtn>
+      </Link>
       <Header>
         <Title>
           {state?.name ? state.name : isLoading ? 'Loading...' : infoData?.name}
