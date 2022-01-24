@@ -2,8 +2,11 @@ import { useQuery } from 'react-query';
 import { useOutletContext } from 'react-router-dom';
 import { fetchCoinHistory } from '../api';
 import ApexCharts from 'react-apexcharts';
-import { readBuilderProgram } from 'typescript';
+import styled from 'styled-components';
 
+const Container = styled.div`
+  text-align: center;
+`;
 interface IChartProps {
   coinId: string;
 }
@@ -27,7 +30,7 @@ const Chart = () => {
     { refetchInterval: 10000 }
   );
   return (
-    <div>
+    <Container>
       {isLoading ? (
         'Loading chart...'
       ) : (
@@ -90,7 +93,7 @@ const Chart = () => {
           }}
         />
       )}
-    </div>
+    </Container>
   );
 };
 
