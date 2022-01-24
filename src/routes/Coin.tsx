@@ -49,6 +49,7 @@ const Loader = styled.span`
 
 const Title = styled.h1`
   font-size: 3rem;
+  font-weight: 700;
   color: ${(props) => props.theme.accentColor};
 `;
 
