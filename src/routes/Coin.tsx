@@ -265,7 +265,7 @@ const Coin = () => {
             </Tab>
           </Tabs>
 
-          <Outlet context={{ coinId }} />
+          <Outlet context={{ coinId, priceData }} />
         </>
       )}
     </Container>
