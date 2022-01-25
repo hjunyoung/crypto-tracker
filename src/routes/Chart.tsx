@@ -9,6 +9,7 @@ const Container = styled.div`
 `;
 interface IChartProps {
   coinId: string;
+  isDark: boolean;
 }
 
 interface IHistorical {
@@ -23,7 +24,7 @@ interface IHistorical {
 }
 
 const Chart = () => {
-  const { coinId } = useOutletContext<IChartProps>();
+  const { coinId, isDark } = useOutletContext<IChartProps>();
   const { isLoading, data } = useQuery<IHistorical[]>(
     ['ohlcv', coinId],
     () => fetchCoinHistory(coinId),
@@ -39,7 +40,7 @@ const Chart = () => {
           series={[{ name: 'price', data: data?.map((price) => price.close) }]}
           options={{
             theme: {
-              mode: 'dark',
+              mode: isDark ? 'dark' : 'light',
             },
             chart: {
               toolbar: { show: false },

@@ -176,7 +176,11 @@ interface IPriceData {
   };
 }
 
-const Coin = () => {
+interface ICoinProps {
+  isDark: boolean;
+}
+
+const Coin = ({ isDark }: ICoinProps) => {
   // const [isLoading, setIsLoading] = useState(true);
   // const [info, setInfo] = useState<IInfoData>();
   // const [priceInfo, setPriceInfo] = useState<IPriceData>();
@@ -264,7 +268,7 @@ const Coin = () => {
             </Tab>
           </Tabs>
 
-          <Outlet context={{ coinId, priceData }} />
+          <Outlet context={{ coinId, isDark, priceData }} />
         </>
       )}
     </Container>
