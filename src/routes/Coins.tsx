@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoins } from '../api';
 import { Helmet } from 'react-helmet';
+import ToggleTheme from '../components/ToggleTheme';
 
 const Container = styled.div`
-  max-width: 480px;
-
-  padding: 0 24px;
-  margin: 0 auto;
+  ${(props) => props.theme.containerStyle};
 `;
 
 const Header = styled.header`
@@ -85,9 +83,7 @@ const Coins = () => {
       <Helmet>
         <title>Coins</title>
       </Helmet>
-      <button onClick={toggleDark}>
-        {isDark ? 'Dark Mode' : 'Light Mode'}
-      </button>
+      <ToggleTheme />
       <Header>
         <Title>Coins</Title>
       </Header>

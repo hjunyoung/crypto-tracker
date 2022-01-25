@@ -9,12 +9,10 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinPrice } from '../api';
+import ToggleTheme from '../components/ToggleTheme';
 
 const Container = styled.div`
-  max-width: 480px;
-
-  padding: 0 24px;
-  margin: 0 auto;
+  ${(props) => props.theme.containerStyle};
 `;
 
 const Header = styled.header`
@@ -26,12 +24,8 @@ const Header = styled.header`
 `;
 
 const BackBtn = styled.button`
-  all: unset;
-  display: block;
+  ${(props) => props.theme.buttonStyle};
   background-color: ${(props) => props.theme.sectionColor};
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
 
   &:hover {
     color: ${(props) => props.theme.accentColor};
@@ -220,6 +214,7 @@ const Coin = () => {
       <Link to="/">
         <BackBtn>Home</BackBtn>
       </Link>
+      <ToggleTheme />
       <Header>
         <Title>
           {state?.name ? state.name : isLoading ? 'Loading...' : infoData?.name}
