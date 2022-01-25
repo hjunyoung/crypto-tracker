@@ -9,5 +9,7 @@ declare module 'styled-components' {
     accentColor: string;
     sectionColor: string;
     borderRadius: string;
+    buttonStyle: string;
+    containerStyle: string;
   }
 }

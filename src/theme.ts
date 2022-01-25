@@ -3,6 +3,20 @@ import { DefaultTheme } from 'styled-components';
 
 const theme = {
   borderRadius: `14px`,
+  buttonStyle: `
+    all: unset;
+    display: block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    `,
+  containerStyle: `
+    position: relative;
+    max-width: 480px;
+
+    padding: 0 24px;
+    margin: 16px auto 0;
+  `,
 };
 
 const darkTheme: DefaultTheme = {
